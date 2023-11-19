@@ -1,3 +1,4 @@
+'use client';
 import { Button, TextArea, TextFieldInput, TextFieldRoot } from '@radix-ui/themes'
 import React from 'react'
 
