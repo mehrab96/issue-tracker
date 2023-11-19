@@ -29,11 +29,7 @@ const NewIssuePage = () => {
         resolver: zodResolver(createIssueSchema)
       });
 
-
-  return (
-    <div>
-        {error && <CalloutRoot color='red' className='mb-2'><CalloutText>{error}</CalloutText></CalloutRoot>}
-        <form onSubmit={handleSubmit(async(data) => {
+    const submitIssue = handleSubmit(async (data) => {
             setSubmitting(true);
             try{
                 await axios.post('/api/issues' , data);
@@ -43,7 +39,13 @@ const NewIssuePage = () => {
                 setError('An unexpected error occurred.');
                 setSubmitting(false);
             }
-            })} className='grid gap-2 grid-cols-1 max-w-xl'>
+    });
+
+
+  return (
+    <div>
+        {error && <CalloutRoot color='red' className='mb-2'><CalloutText>{error}</CalloutText></CalloutRoot>}
+        <form onSubmit={submitIssue} className='grid gap-2 grid-cols-1 max-w-xl'>
             <TextFieldRoot>
                 <TextFieldInput placeholder='title' {...register('title')}></TextFieldInput>
             </TextFieldRoot>
