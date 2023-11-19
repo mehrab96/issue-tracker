@@ -25,7 +25,9 @@ await  delay(2000);
           <TableBody>
             {issues.map((issue , index) => 
             <TableRow key={index}>
-              <TableCell>{issue.title}</TableCell>
+              <TableCell>
+                <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+              </TableCell>
               <TableCell><IssueStatusBadge status={issue.status}/></TableCell>
               <TableCell>{issue.createdAt.toDateString()}</TableCell>
             </TableRow>
