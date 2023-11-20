@@ -14,29 +14,52 @@ interface Links {
 
 
 const NavBar = () => {
-  const currentPass = usePathname();
-  const {status , data: session} = useSession();
-
-  const links: Links[] = [
-    {label: 'Dashboard' , href: '/'},
-    {label: 'Issues' , href: '/issues'},
-  ]
-
+ 
   return (
     <nav className='px-4 py-4  border-b mb-5'>
       <Container>
       <Flex justify="between">
         <Flex align="center" gap="3">
           <Link className='ml-0' href="/"><AiFillBug/></Link>
-          <ul className='flex ml-0 space-x-6'>
-          {links.map((link , index) =>
-           <li className={`${link.href == currentPass ? 'text-red-600' : ''}`} key={index}>
-            <Link href={link.href}>{link.label}</Link>
-            </li>
-           )}
-        </ul>
+          <NavLinks/>
         </Flex>
-        <Box>
+        <AuthStarus/>
+      </Flex>
+      </Container>
+    </nav>
+  )
+}
+
+const NavLinks = () => {
+  const currentPass = usePathname();
+
+  const links: Links[] = [
+    {label: 'Dashboard' , href: '/'},
+    {label: 'Issues' , href: '/issues'},
+  ];
+
+  return (
+    <ul className='flex ml-0 space-x-6'>
+      {links.map((link , index) =>
+        <li className={`${link.href == currentPass ? 'text-red-600' : ''}`} key={index}>
+        <Link href={link.href}>{link.label}</Link>
+        </li>
+      )}
+    </ul>
+  )
+}
+
+const AuthStarus = () => {
+  const {status , data: session} = useSession();
+
+  if(status == 'loading')
+    return null;
+
+  if(status == 'unauthenticated') 
+    return <Link href="/api/auth/signin">Login</Link>; 
+
+  return (
+    <Box>
           {status === "authenticated" && 
           <DropdownMenuRoot>
           <DropdownMenuTrigger>
@@ -52,11 +75,7 @@ const NavBar = () => {
           </DropdownMenuContent>
         </DropdownMenuRoot>
           }
-          {status === "unauthenticated" && <Link href="/api/auth/signin">Login</Link>}
-        </Box>
-      </Flex>
-      </Container>
-    </nav>
+    </Box>
   )
 }
 
