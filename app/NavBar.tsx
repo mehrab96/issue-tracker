@@ -5,7 +5,8 @@ import {AiFillBug} from 'react-icons/ai';
 import {usePathname} from 'next/navigation'
 import { useSession } from 'next-auth/react';
 import { Avatar, Box,Text, Container, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRoot, DropdownMenuTrigger, Flex, DropdownMenuItem } from '@radix-ui/themes';
-
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 interface Links {
   label: string,
@@ -53,7 +54,7 @@ const AuthStarus = () => {
   const {status , data: session} = useSession();
 
   if(status == 'loading')
-    return null;
+    return <Skeleton width="2.2rem" height="2.2rem" borderRadius="2.5rem"/>;
 
   if(status == 'unauthenticated') 
     return <Link href="/api/auth/signin">Login</Link>; 
