@@ -2,7 +2,7 @@ import prisma from '@/prisma/client'
 import delay from 'delay';
 import { notFound } from 'next/navigation';
 import React from 'react'
-import { number } from 'zod';
+// import { number } from 'zod';
 
 interface Props {
     params: {id: string}

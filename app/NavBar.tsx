@@ -3,6 +3,8 @@ import Link from 'next/link';
 import React from 'react';
 import {AiFillBug} from 'react-icons/ai';
 import {usePathname} from 'next/navigation'
+import { useSession } from 'next-auth/react';
+import { Box } from '@radix-ui/themes';
 
 
 interface Links {
@@ -13,6 +15,8 @@ interface Links {
 
 const NavBar = () => {
   const currentPass = usePathname();
+  const {status , data: session} = useSession();
+
   const links: Links[] = [
     {label: 'Dashboard' , href: '/'},
     {label: 'Issues' , href: '/issues'},
@@ -28,9 +32,10 @@ const NavBar = () => {
             </li>
            )}
         </ul>
-        <div className='justify-end mr-auto'>
-          <Link href="/api/auth/signin">Login</Link>
-        </div>
+        <Box className='justify-end mr-auto'>
+          {status === "authenticated" && <Link href="/api/auth/signout">Logout</Link>}
+          {status === "unauthenticated" && <Link href="/api/auth/signin">Login</Link>}
+        </Box>
     </nav>
   )
 }
