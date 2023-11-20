@@ -20,14 +20,17 @@ const NavBar = () => {
 
   return (
     <nav className='px-4 flex space-x-6 h-14 items-center border-b mb-5'>
-        <Link href="/ "><AiFillBug/></Link>
-        <ul className='flex space-x-6'>
+        <Link className='ml-0' href="/"><AiFillBug/></Link>
+        <ul className='flex ml-0 space-x-6'>
           {links.map((link , index) =>
            <li className={`${link.href == currentPass ? 'text-red-600' : ''}`} key={index}>
             <Link href={link.href}>{link.label}</Link>
             </li>
            )}
         </ul>
+        <div className='justify-end mr-auto'>
+          <Link href="/api/auth/signin">Login</Link>
+        </div>
     </nav>
   )
 }
