@@ -4,6 +4,7 @@ import Link from 'next/link';
 import prisma from '@/prisma/client';
 import IssueStatusBadge from '../components/IssueStatusBadge';
 import delay from 'delay';
+import { Metadata } from 'next';
 
 const IssuesPage = async () => {
 const issues = await prisma.issue.findMany();
@@ -36,6 +37,11 @@ await  delay(2000);
         </TableRoot>
     </div>
   )
+}
+
+export const metadata: Metadata = {
+  title: 'Issue Tracker - Issues',
+  description: 'description Issue Tracker - Issues'
 }
 
 export default IssuesPage
